@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::get('/about', function(){
     return view('about');
 });
-Route::get('/register', [UserRegisterController::class, 'index']);
-Route::post('/register', [UserRegisterController::class, 'register']);
+Route::get('/user/add', [UserRegisterController::class, 'index']);
+Route::post('/user/register', [UserRegisterController::class, 'register']);
+Route::get('/user/view', [UserRegisterController::class, 'view']);
 // Route::post('/register', 'App\Http\Controllers\UserRegisterController@register'); // another way of above route

@@ -29,7 +29,10 @@
             <a class="nav-link" href="/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
+            <a class="nav-link" href="/user/add">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/view">View</a>
           </li>
         </ul>
       </div>

@@ -30,7 +30,11 @@ class UserRegisterController extends Controller
         $student->gender = $request['gender'];
         $student->save();
 
-        echo "submitted successfully!";
-        // print_r($request->all());
+        return redirect('/user/view');
+    }
+    public function view(){
+        $students = Students::all();
+        $data = compact('students');
+        return view('view')->with($data);
     }
 }
