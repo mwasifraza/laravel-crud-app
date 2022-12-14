@@ -20,27 +20,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($students as $student)
+                    @if (isset($students[0]->student_id))
+                        @foreach ($students as $student)
+                        <tr>
+                            <td scope="row">{{$student->student_id}}</td>
+                            <td scope="row">{{$student->fullname}}</td>
+                            <td scope="row">{{$student->email}}</td>
+                            <td scope="row">{{$student->username}}</td>
+                            <td scope="row">{{$student->gender}}</td>
+                            <td scope="row">
+                                <a href="{{ route('user.delete', ['id' => $student->student_id]) }}" class="btn btn-danger btn-sm"
+                                    style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                    Delete
+                                </a>
+                            </td>
+                            <td scope="row">
+                                <a href="{{ route('user.update', ['id' => $student->student_id]) }}" class="btn btn-warning btn-sm"
+                                    style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                    Update
+                                </a>
+                            </td>
+                        </tr>                    
+                        @endforeach
+                    @else
                     <tr>
-                        <td scope="row">{{$student->student_id}}</td>
-                        <td scope="row">{{$student->fullname}}</td>
-                        <td scope="row">{{$student->email}}</td>
-                        <td scope="row">{{$student->username}}</td>
-                        <td scope="row">{{$student->gender}}</td>
-                        <td scope="row">
-                            <a href="{{ route('user.delete', ['id' => $student->student_id]) }}" class="btn btn-danger btn-sm"
-                                style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                Delete
-                            </a>
-                        </td>
-                        <td scope="row">
-                            <a href="{{ route('user.update', ['id' => $student->student_id]) }}" class="btn btn-warning btn-sm"
-                                style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                Update
-                            </a>
-                        </td>
-                    </tr>                    
-                    @endforeach
+                        <td colspan="7"><h4 class="text-center text-muted">There is nothing to show!</h4></td>
+                    </tr>
+                    @endif
+                        
                 </tbody>
             </table>
         </div>
