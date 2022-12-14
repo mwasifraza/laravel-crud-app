@@ -37,4 +37,11 @@ class UserRegisterController extends Controller
         $data = compact('students');
         return view('view')->with($data);
     }
+    public function delete($id){
+        $student = Students::find($id);
+        if(!is_null($student)){
+            $student->delete();
+        }
+        return redirect('/user/view');
+    }
 }

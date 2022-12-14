@@ -23,16 +23,16 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="{{url('/')}}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
+            <a class="nav-link" href="{{url('/about')}}">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/user/add">Register</a>
+            <a class="nav-link" href="{{route('user.create')}}">Register</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/user/view">View</a>
+            <a class="nav-link" href="{{route('user.view')}}">View</a>
           </li>
         </ul>
       </div>

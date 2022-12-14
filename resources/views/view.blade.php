@@ -16,6 +16,7 @@
                         <th scope="col">Email</th>
                         <th scope="col">Username</th>
                         <th scope="col">Gender</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +27,12 @@
                         <td scope="row">{{$student->email}}</td>
                         <td scope="row">{{$student->username}}</td>
                         <td scope="row">{{$student->gender}}</td>
+                        <td scope="row">
+                            <a href="{{ route('user.delete', ['id' => $student->student_id]) }}" class="btn btn-danger btn-sm"
+                                style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                Delete
+                            </a>
+                        </td>
                     </tr>                    
                     @endforeach
                 </tbody>
