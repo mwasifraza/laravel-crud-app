@@ -23,6 +23,9 @@ Route::get('/about', function(){
 });
 Route::get('/register', [UserRegisterController::class, 'index'])->name('user.create');
 Route::post('/register', [UserRegisterController::class, 'register']);
+// Route::post('/register', 'App\Http\Controllers\UserRegisterController@register'); // another way of above route
+
 Route::get('/user/view', [UserRegisterController::class, 'view'])->name('user.view');
 Route::get('/user/delete/{id}', [UserRegisterController::class, 'delete'])->name('user.delete');
-// Route::post('/register', 'App\Http\Controllers\UserRegisterController@register'); // another way of above route
+Route::get('/user/update/{id}', [UserRegisterController::class, 'update'])->name('user.update');
+Route::post('/user/update/{id}', [UserRegisterController::class, 'updateData']);

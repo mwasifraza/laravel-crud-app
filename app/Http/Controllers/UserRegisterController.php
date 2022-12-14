@@ -8,7 +8,11 @@ use App\Models\Students;
 class UserRegisterController extends Controller
 {
     public function index(){
-        return view('register');
+        $title = "Register Yourself";
+        $url = url('/register');
+        $btn = "Submit";
+        $data = compact('title', 'url', 'btn');
+        return view('register')->with($data);
     }
     public function register(Request $request){
         $request->validate(
@@ -42,6 +46,37 @@ class UserRegisterController extends Controller
         if(!is_null($student)){
             $student->delete();
         }
+        return redirect('/user/view');
+    }
+    public function update($id){
+        $student = Students::find($id);
+        if(is_null($student)){
+            return redirect('/user/view');
+        }else{
+            $title = "Update Your Data";
+            $url = url('/user/update')."/".$id;
+            $btn = "Update";
+            $data = compact('student', 'title','url', 'btn');
+            return view('register')->with($data);
+        }
+    }
+    public function updateData($id, Request $request){
+        $request->validate(
+            [
+                'fullname' => 'required',
+                'email' => 'required|email',
+                'username' => 'required',
+                'gender' => 'required'
+            ]
+        );
+
+        $student = Students::find($id);
+        $student->fullname = $request['fullname'];
+        $student->email = $request['email'];
+        $student->username = $request['username'];
+        $student->gender = $request['gender'];
+        $student->save();
+
         return redirect('/user/view');
     }
 }
