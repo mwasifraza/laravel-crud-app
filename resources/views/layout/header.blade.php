@@ -26,7 +26,7 @@
             <a class="nav-link" href="{{url('/')}}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url('/about')}}">About</a>
+            <a class="nav-link" href="{{url('/login')}}">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('user.create')}}">Register</a>

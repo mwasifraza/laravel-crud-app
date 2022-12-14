@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserRegisterController;
+use App\Http\Controllers\UserLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,11 @@ use App\Http\Controllers\UserRegisterController;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/login', [UserLoginController::class, 'index']);
+Route::post('/login', [UserLoginController::class, 'loginUser']);
 
-Route::get('/about', function(){
-    return view('about');
-});
-Route::get('/register', [UserRegisterController::class, 'index'])->name('user.create');
-Route::post('/register', [UserRegisterController::class, 'register']);
+Route::get('/user/register', [UserRegisterController::class, 'index'])->name('user.create');
+Route::post('/user/register', [UserRegisterController::class, 'register']);
 // Route::post('/register', 'App\Http\Controllers\UserRegisterController@register'); // another way of above route
 
 Route::get('/user/view', [UserRegisterController::class, 'view'])->name('user.view');

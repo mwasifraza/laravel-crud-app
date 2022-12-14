@@ -9,7 +9,7 @@ class UserRegisterController extends Controller
 {
     public function index(){
         $title = "Register Yourself";
-        $url = url('/register');
+        $url = url('/user/register');
         $btn = "Submit";
         $data = compact('title', 'url', 'btn');
         return view('register')->with($data);
