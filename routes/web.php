@@ -15,15 +15,17 @@ use App\Http\Controllers\UserLoginController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', function(){ return view('home'); });
+
 Route::get('/login', [UserLoginController::class, 'index']);
 Route::post('/login', [UserLoginController::class, 'loginUser']);
+Route::get('/logout', [UserLoginController::class, 'logoutUser']);
+
+Route::get('/dashboard', function(){ return view('dashboard'); });
 
 Route::get('/user/register', [UserRegisterController::class, 'index'])->name('user.create');
 Route::post('/user/register', [UserRegisterController::class, 'register']);
-// Route::post('/register', 'App\Http\Controllers\UserRegisterController@register'); // another way of above route
+// Route::post('/user/register', 'App\Http\Controllers\UserRegisterController@register'); // another way of above route
 
 Route::get('/user/view', [UserRegisterController::class, 'view'])->name('user.view');
 Route::get('/user/delete/{id}', [UserRegisterController::class, 'delete'])->name('user.delete');

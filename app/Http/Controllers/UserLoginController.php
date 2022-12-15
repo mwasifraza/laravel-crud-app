@@ -16,7 +16,13 @@ class UserLoginController extends Controller
         $user = Students::where('username', $username)->first();
         if($user){
             if($password === $user['password']){
-                echo "login";
+                // echo "login";
+                session()->put(['login'=>true]);
+                session()->put(['id'=>$user['student_id']]);
+                session()->put(['username'=>$user['username']]);
+                return redirect("dashboard");
+
+                
             }else{
                 echo "invalid password";
             }
@@ -24,5 +30,11 @@ class UserLoginController extends Controller
             echo 'user not found';
         }
         
+    }
+    public function logoutUser(){
+        if(session("login") == true){
+            session()->flush();
+        }
+        return redirect('/login');
     }
 }
