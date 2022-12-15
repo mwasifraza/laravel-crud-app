@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserRegisterController;
 use App\Http\Controllers\UserLoginController;
+use App\Http\Controllers\UserDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +16,20 @@ use App\Http\Controllers\UserLoginController;
 |
 */
 
-Route::get('/', function(){ return view('home'); });
+Route::get('/', function(){ 
+    // if user is login
+    if(session()->has('login')){
+        return redirect('/dashboard');
+    }
+    
+    return view('home'); 
+});
 
 Route::get('/login', [UserLoginController::class, 'index']);
 Route::post('/login', [UserLoginController::class, 'loginUser']);
 Route::get('/logout', [UserLoginController::class, 'logoutUser']);
 
-Route::get('/dashboard', function(){ return view('dashboard'); });
+Route::get('/dashboard', [UserDashboardController::class, 'index']);
 
 Route::get('/user/register', [UserRegisterController::class, 'index'])->name('user.create');
 Route::post('/user/register', [UserRegisterController::class, 'register']);

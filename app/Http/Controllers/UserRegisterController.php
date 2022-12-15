@@ -8,12 +8,18 @@ use App\Models\Students;
 class UserRegisterController extends Controller
 {
     public function index(){
+        // if user is login
+        if(session()->has('login')){
+            return redirect('/dashboard');
+        }
+
         $title = "Register Yourself";
         $url = url('/user/register');
         $btn = "Submit";
         $data = compact('title', 'url', 'btn');
         return view('register')->with($data);
     }
+
     public function register(Request $request){
         $request->validate(
             [
@@ -36,19 +42,37 @@ class UserRegisterController extends Controller
 
         return redirect('/user/view');
     }
+
     public function view(){
+        // if user is login
+        if(session()->has('login')){
+            return redirect('/dashboard');
+        }
+        
         $students = Students::all();
         $data = compact('students');
         return view('view')->with($data);
     }
+
     public function delete($id){
+        // if user is login
+        if(session()->has('login')){
+            return redirect('/dashboard');
+        }
+
         $student = Students::find($id);
         if(!is_null($student)){
             $student->delete();
         }
         return redirect('/user/view');
     }
+
     public function update($id){
+        // if user is login
+        if(session()->has('login')){
+            return redirect('/dashboard');
+        }
+        
         $student = Students::find($id);
         if(is_null($student)){
             return redirect('/user/view');
@@ -60,6 +84,7 @@ class UserRegisterController extends Controller
             return view('register')->with($data);
         }
     }
+    
     public function updateData($id, Request $request){
         $request->validate(
             [

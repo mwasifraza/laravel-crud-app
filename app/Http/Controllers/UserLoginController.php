@@ -8,8 +8,14 @@ use App\Models\Students;
 class UserLoginController extends Controller
 {
     public function index(){
+        // if user is login
+        if(session()->has('login')){
+            return redirect('/dashboard');
+        }
+        
         return view('login');
     }
+
     public function loginUser(Request $request){
         $username = $request['username'];
         $password = md5($request['password']);
@@ -32,7 +38,7 @@ class UserLoginController extends Controller
         
     }
     public function logoutUser(){
-        if(session("login") == true){
+        if(session()->has("login")){
             session()->flush();
         }
         return redirect('/login');
