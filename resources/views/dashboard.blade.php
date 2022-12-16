@@ -5,7 +5,7 @@
 @endpush
 
 @section('main-section')
-    <h1 class="my-5">Welcome, {{ session('username') ?? "Guest" }}</h1>
+    <h1 class="my-5">Welcome, {{ session('fullname') }}</h1>
 @endsection
 
 

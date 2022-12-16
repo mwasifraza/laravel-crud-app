@@ -26,14 +26,14 @@ class UserLoginController extends Controller
                 session()->put(['login'=>true]);
                 session()->put(['id'=>$user['student_id']]);
                 session()->put(['username'=>$user['username']]);
+                session()->put(['fullname'=>$user['fullname']]);
                 return redirect("dashboard");
-
                 
             }else{
-                echo "invalid password";
+                echo "invalid username or password";
             }
         }else{
-            echo 'user not found';
+            echo 'invalid user!';
         }
         
     }

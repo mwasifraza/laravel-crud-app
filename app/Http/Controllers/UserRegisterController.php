@@ -25,8 +25,8 @@ class UserRegisterController extends Controller
             [
                 'fullname' => 'required',
                 'email' => 'required|email',
-                'username' => 'required',
-                'password' => 'required',
+                'username' => 'required|min:5',
+                'password' => 'required|min:4',
                 'confirm_password' => 'required|same:password',
                 'gender' => 'required'
             ]
@@ -90,7 +90,7 @@ class UserRegisterController extends Controller
             [
                 'fullname' => 'required',
                 'email' => 'required|email',
-                'username' => 'required',
+                'username' => 'required|min:5',
                 'gender' => 'required'
             ]
         );
