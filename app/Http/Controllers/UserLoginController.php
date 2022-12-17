@@ -19,21 +19,16 @@ class UserLoginController extends Controller
     public function loginUser(Request $request){
         $username = $request['username'];
         $password = md5($request['password']);
-        $user = Students::where('username', $username)->first();
+        $user = Students::where('username', '=', $username)->where('password', '=', $password)->first();
         if($user){
-            if($password === $user['password']){
-                // echo "login";
-                session()->put(['login'=>true]);
-                session()->put(['id'=>$user['student_id']]);
-                session()->put(['username'=>$user['username']]);
-                session()->put(['fullname'=>$user['fullname']]);
-                return redirect("dashboard");
-                
-            }else{
-                echo "invalid username or password";
-            }
+            // echo "login";
+            session()->put(['login'=>true]);
+            session()->put(['id'=>$user['student_id']]);
+            session()->put(['username'=>$user['username']]);
+            session()->put(['fullname'=>$user['fullname']]);
+            return redirect("dashboard");
         }else{
-            echo 'invalid user!';
+            return redirect('/login')->withErrors(['password' => 'invalid username or password!']);
         }
         
     }

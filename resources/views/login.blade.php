@@ -15,7 +15,7 @@
             <x-input label="Username" type="username" name="username" />
             <x-input label="Password" type="password" name="password" />
 
-            <div class="d-grid">
+            <div class="d-grid mt-3">
                 <button class="btn btn-warning">Login</button>
             </div>
 
