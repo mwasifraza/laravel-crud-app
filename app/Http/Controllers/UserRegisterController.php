@@ -23,9 +23,9 @@ class UserRegisterController extends Controller
     public function register(Request $request){
         $request->validate(
             [
-                'fullname' => 'required',
+                'fullname' => 'required|regex:/^[a-zA-Z\s]+$/',
                 'email' => 'required|email',
-                'username' => 'required|min:5',
+                'username' => 'required|min:5|regex:/^[a-zA-Z0-9\._]+$/',
                 'password' => 'required|min:4',
                 'confirm_password' => 'required|same:password',
                 'gender' => 'required'
@@ -88,9 +88,9 @@ class UserRegisterController extends Controller
     public function updateData($id, Request $request){
         $request->validate(
             [
-                'fullname' => 'required',
+                'fullname' => 'required|regex:/^[a-zA-Z\s]+$/',
                 'email' => 'required|email',
-                'username' => 'required|min:5',
+                'username' => 'required|min:5|regex:/^[a-zA-Z0-9\._]+$/',
                 'gender' => 'required'
             ]
         );

@@ -28,7 +28,7 @@ class UserLoginController extends Controller
             session()->put(['fullname'=>$user['fullname']]);
             return redirect("dashboard");
         }else{
-            return redirect('/login')->withErrors(['password' => 'invalid username or password!']);
+            return redirect('/login')->withErrors(['password' => 'Invalid username or password!']);
         }
         
     }

@@ -12,9 +12,9 @@
             @csrf
             <h3>{{ $title }}!</h3>
             <hr>
-            <x-input label="Full Name" type="text" name="fullname" value="{{ $student->fullname ?? '' }}" />
-            <x-input label="Email" type="email" name="email" value="{{ $student->email ?? '' }}" />
-            <x-input label="Username" type="username" name="username" value="{{ $student->username ?? '' }}" />
+            <x-input label="Full Name" type="text" name="fullname" value="{{ $student->fullname ?? old('fullname') ?? '' }}" />
+            <x-input label="Email" type="email" name="email" value="{{ $student->email ?? old('email') ?? '' }}" />
+            <x-input label="Username" type="username" name="username" value="{{ $student->username ?? old('username') ?? '' }}" />
             <x-input label="Password" type="password" name="password" />
             <x-input label="Confirm Password" type="password" name="confirm_password" />
 
