@@ -24,8 +24,8 @@ class UserRegisterController extends Controller
         $request->validate(
             [
                 'fullname' => 'required|regex:/^[a-zA-Z\s]+$/',
-                'email' => 'required|email',
-                'username' => 'required|min:5|regex:/^[a-zA-Z0-9\._]+$/',
+                'email' => 'required|email|unique:students',
+                'username' => 'required|min:5|unique:students|regex:/^[a-zA-Z0-9\._]+$/',
                 'password' => 'required|min:4',
                 'confirm_password' => 'required|same:password',
                 'gender' => 'required'
