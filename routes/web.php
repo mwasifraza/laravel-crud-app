@@ -16,26 +16,25 @@ use App\Http\Controllers\UserDashboardController;
 |
 */
 
-Route::get('/', function(){ 
-    // if user is login
-    if(session()->has('login')){
-        return redirect('/dashboard');
-    }
-    
-    return view('home'); 
+Route::get('/', function(){ return view('home'); });
+
+Route::controller(UserLoginController::class)->group(function(){
+    Route::get('/login', 'index');
+    Route::post('/login', 'loginUser');
+    Route::get('/logout', 'logoutUser');
 });
 
-Route::get('/login', [UserLoginController::class, 'index']);
-Route::post('/login', [UserLoginController::class, 'loginUser']);
-Route::get('/logout', [UserLoginController::class, 'logoutUser']);
+Route::controller(UserDashboardController::class)->group(function(){
+    Route::get('/dashboard', 'index');
+});
 
-Route::get('/dashboard', [UserDashboardController::class, 'index']);
-
-Route::get('/user/register', [UserRegisterController::class, 'index'])->name('user.create');
-Route::post('/user/register', [UserRegisterController::class, 'register']);
-// Route::post('/user/register', 'App\Http\Controllers\UserRegisterController@register'); // another way of above route
-
-Route::get('/user/view', [UserRegisterController::class, 'view'])->name('user.view');
-Route::get('/user/delete/{id}', [UserRegisterController::class, 'delete'])->name('user.delete');
-Route::get('/user/update/{id}', [UserRegisterController::class, 'update'])->name('user.update');
-Route::post('/user/update/{id}', [UserRegisterController::class, 'updateData']);
+Route::prefix('user')->name('user.')->controller(UserRegisterController::class)->group(function(){
+    Route::get('/register', 'index')->name('create');
+    Route::post('/register', 'register');
+    // Route::post('/user/register', 'App\Http\Controllers\UserRegisterController@register'); // another way of above route
+    
+    Route::get('/view', 'view')->name('view');
+    Route::get('/delete/{id}', 'delete')->name('delete');
+    Route::get('/update/{id}', 'update')->name('update');
+    Route::post('/update/{id}', 'updateData');
+});

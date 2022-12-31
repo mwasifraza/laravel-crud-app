@@ -14,9 +14,8 @@ class UserLoginController extends Controller
     public function loginUser(Request $request){
         $username = $request['username'];
         $password = md5($request['password']);
-        $user = Students::where('username', '=', $username)->where('password', '=', $password)->first();
+        $user = Students::where('username', $username)->where('password', $password)->first();
         if($user){
-            // echo "login";
             session()->put(['login'=>true]);
             session()->put(['id'=>$user['student_id']]);
             session()->put(['username'=>$user['username']]);
@@ -28,6 +27,9 @@ class UserLoginController extends Controller
         
     }
     public function logoutUser(){
+        if(session()->has("login")){
+            session()->flush();
+        }
         return redirect('/login');
     }
 }
