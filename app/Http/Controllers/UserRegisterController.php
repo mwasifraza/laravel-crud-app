@@ -8,11 +8,13 @@ use App\Models\Students;
 class UserRegisterController extends Controller
 {
     public function index(){
-        $title = "Register Yourself";
-        $url = url('/user/register');
-        $btn = "Submit";
-        $data = compact('title', 'url', 'btn');
-        return view('register')->with($data);
+        $data = [
+            'title' => "Register Yourself",
+            'url' => url('/user/register'),
+            'btn' => "Submit",
+            'student' => "",
+        ];
+        return view('register', $data);
     }
 
     public function register(Request $request){
@@ -24,6 +26,13 @@ class UserRegisterController extends Controller
                 'password' => 'required|min:4',
                 'confirm_password' => 'required|same:password',
                 'gender' => 'required'
+            ],
+            [
+                'fullname.required' => 'Don\'t you have a :attribute?',
+                'email.required' => 'The :attribute is must!',
+            ],
+            [
+                'email' => 'email address'
             ]
         );
 
@@ -39,9 +48,8 @@ class UserRegisterController extends Controller
     }
 
     public function view(){
-        $students = Students::all();
-        $data = compact('students');
-        return view('view')->with($data);
+        $data = ['students' => Students::all()];
+        return view('view', $data);
     }
 
     public function delete($id){
@@ -57,11 +65,13 @@ class UserRegisterController extends Controller
         if(is_null($student)){
             return redirect('/user/view');
         }else{
-            $title = "Update Your Data";
-            $url = url('/user/update')."/".$id;
-            $btn = "Update";
-            $data = compact('student', 'title','url', 'btn');
-            return view('register')->with($data);
+            $data = [
+                'title' => "Update Your Data",
+                'url' => url('/user/update')."/".$id,
+                'btn' => "Update",
+                'student' => $student,
+            ];
+            return view('register', $data);
         }
     }
     
@@ -69,8 +79,8 @@ class UserRegisterController extends Controller
         $request->validate(
             [
                 'fullname' => 'required|regex:/^[a-zA-Z\s]+$/',
-                'email' => 'required|email',
-                'username' => 'required|min:5|regex:/^[a-zA-Z0-9\._]+$/',
+                'email' => 'required|email|unique:students,email,'.$id.',student_id',
+                'username' => 'required|min:5|regex:/^[a-zA-Z0-9\._]+$/|unique:students,username,'.$id.',student_id',
                 'gender' => 'required'
             ]
         );

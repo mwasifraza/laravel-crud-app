@@ -12,22 +12,26 @@
             @csrf
             <h3>{{ $title }}!</h3>
             <hr>
-            <x-input label="Full Name" type="text" name="fullname" value="{{ $student->fullname ?? old('fullname') ?? '' }}" />
-            <x-input label="Email" type="email" name="email" value="{{ $student->email ?? old('email') ?? '' }}" />
-            <x-input label="Username" type="username" name="username" value="{{ $student->username ?? old('username') ?? '' }}" />
+            <x-input label="Full Name" type="text" name="fullname" value="{{ $student->fullname ?? old('fullname') }}" />
+            <x-input label="Email" type="email" name="email" value="{{ $student->email ?? old('email') }}" />
+            <x-input label="Username" type="username" name="username" value="{{ $student->username ?? old('username') }}" />
+
+            @if (!($student))
             <x-input label="Password" type="password" name="password" />
             <x-input label="Confirm Password" type="password" name="confirm_password" />
+            @endif
+
 
             <div class="mb-3">
                 <label for="gender" class="form-label">Gender</label>
                 <select name="gender" id="gender" class="form-select">
                     <option value="">--Gender--</option>
-                    @if(!isset($student))
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                    @if(!isset($student->gender))
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
                     @else
-                    <option value="male" {{ $student->gender == 'male' ? 'selected' : '' }} >Male</option>
-                    <option value="female" {{ $student->gender == 'female' ? 'selected' : '' }} >Female</option>
+                        <option value="male" {{ $student->gender == 'male' ? 'selected' : '' }} >Male</option>
+                        <option value="female" {{ $student->gender == 'female' ? 'selected' : '' }} >Female</option>
                     @endif
                 </select>
                 <small class="text-danger">
