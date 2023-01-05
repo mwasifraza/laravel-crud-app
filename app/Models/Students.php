@@ -11,6 +11,10 @@ class Students extends Model
     protected $table = "students";
     protected $primaryKey = "student_id";
 
+    protected $fillable = [
+        "fullname", "email", "username", "password", "gender"
+    ];
+
     public function setFullnameAttribute($value){
         $this->attributes['fullname'] = ucwords($value);
     }

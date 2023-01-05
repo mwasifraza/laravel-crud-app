@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Http\Requests\SignupRequest;
 use App\Models\Students;
 
 class UserRegisterController extends Controller
@@ -17,39 +19,14 @@ class UserRegisterController extends Controller
         return view('register', $data);
     }
 
-    public function register(Request $request){
-        $request->validate(
-            [
-                'fullname' => 'required|regex:/^[a-zA-Z\s]+$/',
-                'email' => 'required|email|unique:students',
-                'username' => 'required|min:5|unique:students|regex:/^[a-zA-Z0-9\._]+$/',
-                'password' => 'required|min:4',
-                'confirm_password' => 'required|same:password',
-                'gender' => 'required'
-            ],
-            [
-                'fullname.required' => 'Don\'t you have a :attribute?',
-                'email.required' => 'The :attribute is must!',
-            ],
-            [
-                'email' => 'email address'
-            ]
-        );
-
-        $student = new Students;
-        $student->fullname = $request['fullname'];
-        $student->email = $request['email'];
-        $student->username = $request['username'];
-        $student->password = md5($request['password']);
-        $student->gender = $request['gender'];
-        $student->save();
-
+    public function register(SignupRequest $request){
+        $request->merge(['password' => Hash::make($request->password)]);
+        $student = Students::create($request->all());
         return redirect('/user/view');
     }
 
     public function view(){
-        $data = ['students' => Students::all()];
-        return view('view', $data);
+        return view('view', ['students' => Students::all()]);
     }
 
     public function delete($id){
