@@ -16,7 +16,6 @@ use App\Http\Controllers\UserDashboardController;
 |
 */
 
-Route::get('/', function(){ return view('home'); });
 
 Route::controller(UserLoginController::class)->group(function(){
     Route::get('/login', 'index');
@@ -29,8 +28,11 @@ Route::controller(UserDashboardController::class)->group(function(){
 });
 
 Route::prefix('user')->name('user.')->controller(UserRegisterController::class)->group(function(){
-    Route::get('/register', 'index')->name('create');
-    Route::post('/register', 'register');
+    // home route
+    Route::get('/', 'index');
+    // register
+    Route::get('/register', 'register')->name('create.page');
+    Route::post('/register', 'register_user')->name('create.action');
     // Route::post('/user/register', 'App\Http\Controllers\UserRegisterController@register'); // another way of above route
     
     Route::get('/view', 'view')->name('view');

@@ -23,7 +23,6 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
 
-          @if (!session("login"))
             <li class="nav-item">
               <a class="nav-link" href="{{url('/')}}">Home</a>
             </li>
@@ -31,18 +30,17 @@
               <a class="nav-link" href="{{url('/login')}}">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('user.create')}}">Register</a>
+              <a class="nav-link" href="{{route('user.create.page')}}">Register</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{route('user.view')}}">View</a>
             </li>
-          @else
             <li class="nav-item">
               <a class="nav-link" href="{{url('/dashboard')}}">Dashboard</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ session('username') }}
+                user
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Help</a></li>
@@ -51,7 +49,6 @@
                 <li><a class="dropdown-item" href="{{url('/logout')}}">Logout</a></li>
               </ul>
             </li>
-          @endif
 
         </ul>
       </div>

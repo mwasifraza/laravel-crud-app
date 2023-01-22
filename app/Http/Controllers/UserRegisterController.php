@@ -5,32 +5,36 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Requests\SignupRequest;
-use App\Models\Students;
+use App\Models\Student;
 
 class UserRegisterController extends Controller
 {
     public function index(){
+        return view('home');
+    }
+
+    public function register(){
         $data = [
             'title' => "Register Yourself",
-            'url' => url('/user/register'),
+            'url' => route('user.create.action'),
             'btn' => "Submit",
             'student' => "",
         ];
-        return view('register', $data);
+        return view('register-update', $data);
     }
 
-    public function register(SignupRequest $request){
+    public function register_user(SignupRequest $request){
         $request->merge(['password' => Hash::make($request->password)]);
-        $student = Students::create($request->all());
+        $student = Student::create($request->all());
         return redirect('/user/view');
     }
 
     public function view(){
-        return view('view', ['students' => Students::all()]);
+        return view('view', ['students' => Student::all()]);
     }
 
     public function delete($id){
-        $student = Students::find($id);
+        $student = Student::find($id);
         if(!is_null($student)){
             $student->delete();
         }
@@ -38,7 +42,7 @@ class UserRegisterController extends Controller
     }
 
     public function update($id){
-        $student = Students::find($id);
+        $student = Student::find($id);
         if(is_null($student)){
             return redirect('/user/view');
         }else{
@@ -48,7 +52,7 @@ class UserRegisterController extends Controller
                 'btn' => "Update",
                 'student' => $student,
             ];
-            return view('register', $data);
+            return view('register-update', $data);
         }
     }
     
@@ -62,7 +66,7 @@ class UserRegisterController extends Controller
             ]
         );
 
-        $student = Students::find($id);
+        $student = Student::find($id);
         $student->fullname = $request['fullname'];
         $student->email = $request['email'];
         $student->username = $request['username'];
