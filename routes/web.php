@@ -18,13 +18,13 @@ use App\Http\Controllers\UserDashboardController;
 
 
 Route::controller(UserLoginController::class)->group(function(){
-    Route::get('/login', 'index');
-    Route::post('/login', 'loginUser');
-    Route::get('/logout', 'logoutUser');
+    Route::get('/login', 'login')->name('login.page');
+    Route::post('/login', 'login_user')->name('login.action');
+    Route::get('/logout', 'logout_user')->name('logout');
 });
 
 Route::controller(UserDashboardController::class)->group(function(){
-    Route::get('/dashboard', 'index');
+    Route::get('/dashboard', 'index')->name('dashboard');
 });
 
 Route::prefix('user')->name('user.')->controller(UserRegisterController::class)->group(function(){

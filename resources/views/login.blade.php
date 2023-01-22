@@ -7,7 +7,7 @@
 @section('main-section')
 <div class="row">
     <div class="col-sm-4 mx-auto">
-        <form action="{{url('/login')}}" method="post" class="my-4 border p-3 rounded">
+        <form action="{{ route('login.action') }}" method="post" class="my-4 border p-3 rounded">
             
             @csrf
             <h3>Login!</h3>
